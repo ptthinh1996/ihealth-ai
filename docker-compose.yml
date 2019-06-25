@@ -1,0 +1,25 @@
+version: '3.2'
+services:
+  mysql:
+    container_name: supa_mysql
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - supa_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=supa
+  platform:
+      container_name: supa
+      image: openjdk:8-alpine
+      ports:
+        - 9090:9090
+      volumes:
+        - ./target:/opt/platform
+      working_dir: /opt/platform
+      command: java -Dspring.profiles.active=${ENV_PROFILE} -jar supa-${ENV_VERSION}.jar
+      depends_on:
+        - mysql
+volumes:
+  supa_data:

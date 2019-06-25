@@ -1,0 +1,88 @@
+# Framework Properties
+spring:
+  http:
+    multipart:
+      max-file-size: 1024KB
+      max-request-size: 1024KB
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - [%F:%L] - %msg%n"
+#  file: log/subsAdmin.log
+
+
+# Application Properties
+application:
+  decimal-pattern: "#0.0"
+  max-file-size: 5242880 # 5MB = 5*1024*1024
+  api-path: http://localhost:9090
+  email-thread-pool:
+    core-pool-size: 5
+    maxPool-size: 100
+    idle-timeout: 500
+    queue: 100
+  task-thread-pool:
+    core-pool-size: 10
+    maxPool-size: 100
+    idle-timeout: 500
+    queue: 100
+  version: @project.version@
+  use-local-email-client: false
+  loader-scheduler: 10000 # 10s
+
+
+# Web Server Properties
+web-server:
+  port: 9090
+  jetty:
+    queue-size: 1000
+    min-threads: 10
+    max-threads: 100
+    idle-timeout: 30000
+
+
+# Security Properties
+security:
+  jwt:
+    expiration: 2592000000 # 30 day = 30* 24 * 60 * 60 * 1000
+    secret: 3SSystem
+
+  cors:
+    allowed-exposed-headers: X-Security-Token,X-User-Profile
+    allowed-headers:
+    allowed-methods:
+    allowed-origins:
+    is-allowed-credentials: true
+    is-enabled: true
+
+
+# Database Server Properties
+database-server:
+  mysql:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ihealth?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: admin
+    initial-size: 10
+    min-idle: 5
+    maximum-pool-size: 20
+    show-sql: false
+    batch-size: 20
+
+
+# Cache Server Properties
+cache-server:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    min-idle: 10
+    max-total:  50
+    timeout:  15000
+    block-when-exhausted: false
+    default-expired:  3600 # 1 hour = 3,600 seconds, all keys will be expired after one hour
+  lock-key-expired:  30 # 30 seconds
+  click-expired:  3600 # 1 hour = 3,600 seconds
+  acquire-lock-sleep: 2000 # 20s

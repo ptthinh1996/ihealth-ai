@@ -1,0 +1,9 @@
+
+  _____________
+
+ iHealth - v${application.version}
+
+ * Runtime configuration to enable features:
+
+ -Dspring.profiles.active=dev              :active profile
+
